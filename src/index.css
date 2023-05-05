@@ -1,5 +1,9 @@
+*{
+  margin:  0;
+  padding: 0;
+}
+
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +14,208 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.wrapper{
+  width: 1280px;
+  margin: 50px auto;
+}
+
+header {
+  position: relative;
+}
+
+header .logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+header .presentation {
+  margin: 50px auto;
+  background: url('./img/backGr.webp') no-repeat;
+  width: 100%;
+  height: 500px;
+  background-size: cover;
+  background-position: center center;
+  background-blend-mode: multiply;
+  background-color: #bcbcbc;
+  position: relative;
+}
+
+header .presentation::after {
+  content: 'Stay modern';
+  position: absolute;
+  top: 100px;
+  left: 50px;
+  width: 300px;
+  font-size: 40px;
+  font-weight: 600;
+  color: #fff;  
+}
+header .presentation::before {
+  content: 'With us';
+  position: absolute;
+  top: 250px;
+  left: 50px;
+  width: 300px;
+  font-size: 25px;
+  font-weight: 300;
+  color: #fff;
+}
+
+header .shop-star-btn {
+  float: right;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: color 500ms ease;
+}
+
+header .shop-star-btn:hover,
+header .shop-star-btn.active {
+  color: rgb(242, 226, 3);
+}
+
+header .shop-cart-btn {
+  float: right;
+  cursor: pointer;
+  transition: color 500ms ease;
+}
+
+header .shop-cart-btn:hover,
+header .shop-cart-btn.active {
+  color: red;
+}
+
+header .shop-cart {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  width: 450px;
+  background: #fafafa;
+  box-shadow: 4px 5px 15px -7px #606060;
+  z-index: 1000;
+  padding: 20px;
+  padding-bottom: 0;
+}
+
+header .shop-cart .item .empty {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+header .shop-cart .item {
+  width: 100%;
+  float: left;
+  margin-bottom: 20px;
+}
+
+header .shop-cart .item img {
+  width: 70px;
+  height: 60px;
+  float: left;
+  margin-right: 20px;
+}
+
+header .shop-cart .item h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+header .shop-cart .item b {
+  font-weight: 500;
+  color: #797979;
+}
+
+header .shop-cart .item .delete-icon {
+  color: red;
+  float: right;
+  position: relative;
+  top: -25px;
+  cursor: pointer;
+  transition: color, transform 500ms ease;
+}
+
+header .shop-cart .item .delete-icon:hover {
+  transform: scale(1.5);
+}
+
+main {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+
+main .item {
+  width: 30%;
+  margin-bottom: 50px;
+  background: #f5f5f5;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 20px;
+}
+main .item img{
+  width: 100%;
+  height: 300px;
+  border-radius: 10px 10px 0 0;
+  transition: transform 500ms ease;
+}
+main .item img:hover {
+transform: scale(1.05);
+}
+
+main h2, main p, main b {
+  margin: 10px 20px;
+  color: #333;
+}
+
+main b {
+  color: #5fa36a;
+}
+
+main .add-to-card{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  background: red;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 600;
+
+}
+main .add-to-card:hover {
+  transform: scale(1.05) translateY(-5px);
+  transition: transform 500ms ease;
+}
+
+.cart-count {
+    float: right;
+}
+.fav-count{
+  float: right;
+}
+
+main .add-to-fav {
+  position: absolute;
+  right: 78px;
+  /* bottom: 20px; */
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 600; 
+}
+
+main .add-to-fav:hover {
+  transform: scale(1.05) translateY(-5px);
+  transition: transform 500ms ease;
+}
+
+main .add-to-fav.active {
+color: rgb(242, 226, 3);
 }

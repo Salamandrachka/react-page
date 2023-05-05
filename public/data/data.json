@@ -1,0 +1,79 @@
+{
+   "products": [
+        {
+          "id": 1,
+          "title": "Bag",
+          "img": "black.webp",
+          "code": 1145,
+          "color": "black",
+          "price": "45"
+        },
+        {
+     
+          "id": 2,
+          "title": "Bag",
+          "img": "creamBag.webp",
+          "code": 2267,
+          "color": "Cream",
+          "price": "45"
+        },
+           
+        {
+          "id": 3,
+          "title": "Bag",
+          "img": "pink-crocBag.jpg",
+          "code": 1116,
+          "color": "Pink",
+          "price": "45"
+        },
+    {
+     
+          "id": 4,
+          "title": "Bag",
+          "img": "white-blueBag.jpg",
+          "code": 2257,
+          "color": "White/Blue",
+          "price": "45"
+        },
+            {
+          "id": 5,
+          "title": "Bag",
+          "img": "yellowBag.jpeg",
+          "code": 1661,
+          "color": "Yellow",
+          "price": "45"
+        },
+    {
+          "id": 6,
+          "title": "Bag",
+          "img": "black.webp",
+          "code": 2875,
+          "color": "black",
+          "price": "45"
+        },
+            {
+          "id": 7,
+          "title": "Bag",
+          "img": "grayBag.jpg",
+          "code": 1076,
+          "color": "Gray",
+          "price": "45"
+        },
+        {
+          "id": 8,
+          "title": "Bag",
+          "img": "pinkBag.jpg",
+          "code": 2676,
+          "color": "Pink",
+          "price": "45"
+        },
+        {
+          "id": 9,
+          "title": "Bag",
+          "img": "pink-gucciBag.jpg",
+          "code": 1267,
+          "color": "Pink",
+          "price": "45"
+        }
+  ]
+}
