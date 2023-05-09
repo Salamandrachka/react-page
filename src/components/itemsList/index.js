@@ -1,20 +1,38 @@
-import React, { Component } from 'react'
-import Item from '../item'
+import React from 'react';
+import Item from '../item';
 import PropTypes from 'prop-types';
 
-export class ItemsList extends Component {
-  render() {
-    return (
-        <main>
-            {this.props.items.map(el => (
-                <Item key={el.id} item={el} onAdd={this.props.onAdd} onAddToFav={this.props.onAddToFav} onDeleteFav={this.props.onDeleteFav}/>
-            ))}
-      </main>
-    )
-  }
+function ItemsList(props) {
+  return (
+    <main>
+      {props.items.map((el) => (
+        <Item
+          key={el.id}
+          item={el}
+          onAdd={props.onAdd}
+          onAddToFav={props.onAddToFav}
+          onDeleteFav={props.onDeleteFav}
+        />
+      ))}
+    </main>
+  );
 }
 
-export default ItemsList;
+// ItemsList.propTypes = {
+//   items: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string,
+//       title: PropTypes.string,
+//       price: PropTypes.number,
+//       img: PropTypes.string,
+//       color: PropTypes.string,
+//       code: PropTypes.string,
+//     })
+//   ),
+//   onAdd: PropTypes.func,
+//   onAddToFav: PropTypes.func,
+//   onDeleteFav: PropTypes.func,
+// };
 
 ItemsList.propTypes = {
     id: PropTypes.string,
@@ -24,3 +42,4 @@ ItemsList.propTypes = {
     color: PropTypes.string,
     code: PropTypes.string,
 }
+export default ItemsList;

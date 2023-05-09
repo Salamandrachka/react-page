@@ -1,96 +1,87 @@
-import React, { Component } from 'react'
-import { FaShoppingBag, FaStar } from "react-icons/fa"
+import React, { useState } from 'react';
+import { FaShoppingBag, FaStar } from "react-icons/fa";
 import PropTypes from 'prop-types';
 import OrderElem from '../orderElem';
+import {Routes, Route, Link } from 'react-router-dom';
 
-class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cartOpen: false,
-      favOpen: false,
-    };
-    this.toggleCart = this.toggleCart.bind(this);
-     this.toggleFav = this.toggleFav.bind(this);
+const Header = ({ orders, favs, onDelete, onDeleteFav }) => {
+  const [cartOpen, setCartOpen] = useState(false);
+  const [favOpen, setFavOpen] = useState(false);
+
+  const toggleCart = () => {
+    setCartOpen(prevState => !prevState);
+    setFavOpen(false);
+    // Сохраняем данные корзины в локальное хранилище
+    if (!cartOpen) {
+    localStorage.setItem('orders', JSON.stringify(orders));
   }
+  };
 
-showOrders() {
+  const toggleFav = () => {
+    setFavOpen(prevState => !prevState);
+    setCartOpen(false);
+  };
+
+  const showOrders = () => {
     return (
       <div>
-        {this.props.orders.map(el => (
-          <OrderElem onDelete={this.props.onDelete} onDeleteFav={this.props.onDeleteFav} key={el.id} item={el} type='cart'/>
+        {orders.map(el => (
+          <OrderElem onDelete={onDelete} onDeleteFav={onDeleteFav} key={el.id} item={el} type='cart'/>
         ))}
-    </div>
-  )
-  }
+      </div>
+    );
+  };
 
-  showFavs() {
+  const showFavs = () => {
     return (
       <div>
-        {this.props.favs.map(el => (
-          <OrderElem onDeleteFav={this.props.onDeleteFav} onDelete={this.props.onDelete} key={el.id} item={el} type='fav' />
+        {favs.map(el => (
+          <OrderElem onDeleteFav={onDeleteFav} onDelete={onDelete} key={el.id} item={el} type='fav' />
         ))}
-    </div>
-  )
-}
+      </div>
+    );
+  };
 
-  showNothing() {
+  const showNothing = () => {
     return (
       <div className='empty'>
-       <h2>No items added</h2>
-    </div>
-  )
-  }
-  
-  toggleCart() {
-    this.setState(prevState => ({
-      cartOpen: !prevState.cartOpen,
-      favOpen: false
-    }));
-  }
-    toggleFav() {
-    this.setState(prevState => ({
-      favOpen: !prevState.favOpen,
-      cartOpen: false
-    }));
-  }
-
-  render() {
-    const { cartOpen, favOpen } = this.state;
-    return (
-      <header>
-        <div>
-          <span className="logo">Luxury Bags</span>
-          <FaShoppingBag
-            onClick={this.toggleCart}
-            className={`shop-cart-btn ${cartOpen && 'active'}`}
-          />
-          {cartOpen && (
-            <div className='shop-cart'>
-              {this.props.orders.length > 0 ? this.showOrders() : this.showNothing()}
-            </div>
-          )}
-          <span className="cart-count">{this.props.orders.length}</span>
-
-
-          <FaStar onClick={this.toggleFav}
-            className={`shop-star-btn ${favOpen && 'active'}`} />
-          {favOpen && (
-            <div className='shop-cart'>
-              {this.props.favs.length > 0 ? this.showFavs() : this.showNothing()}
-            </div>
-          )}
-
- <span className="fav-count">{this.props.favs.length}</span>
-        </div>
-        <div className="presentation"></div>
-      </header>
+        <h2>No items added</h2>
+      </div>
     );
-  }
-}
+  };
+  
+  return (
+    <header>
+      <div>
+        <span className="logo">Luxury Bags</span>
+        <FaShoppingBag
+          onClick={toggleCart}
+          className={`shop-cart-btn ${cartOpen && 'active'}`}
+        />
+        {cartOpen && (
+          <div className='shop-cart'>
+            {orders.length > 0 ? showOrders() : showNothing()}
+             <Link to='/cart'>Cart</Link>
+          </div>
+        )}
+        <span className="cart-count">{orders.length}</span>
 
-export default Header;
-
+        <FaStar
+          onClick={toggleFav}
+          className={`shop-star-btn ${favOpen && 'active'}`}
+        />
+        {favOpen && (
+          <div className='shop-cart'>
+            {favs.length > 0 ? showFavs() : showNothing()}
+            <Link to='/fav'>Favourites</Link>
+          </div>
+        )}
+        <span className="fav-count">{favs.length}</span>
+      </div>
+      <div className="presentation"></div>
+    </header>
+  );
+};
 
 Header.propTypes = {
   orders: PropTypes.array.isRequired,
@@ -98,3 +89,13 @@ Header.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onDeleteFav: PropTypes.func.isRequired,
 };
+
+export default Header;
+
+
+// Header.propTypes = {
+//   orders: PropTypes.array.isRequired,
+//   favs: PropTypes.array.isRequired,
+//   onDelete: PropTypes.func.isRequired,
+//   onDeleteFav: PropTypes.func.isRequired,
+// };
