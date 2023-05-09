@@ -28,23 +28,26 @@ function Fav({ onDeleteFav }) {
 
   const showFavs= () => {
     return (
-        <div>
-                       <header> 
+        <div className='wrapper'>
+                       <header className='header-fav'> 
               <div>
-                   <span><Link to='/'>Home page</Link></span>
-                   <span className="logo">Luxury Bags</span>
+                   
+            <span className="logo">Luxury Bags</span>
+            <span className='home-link'><Link to='/'>Home page</Link></span>
                </div>
            </header>
-           <div>
-               <div>
+           <div className='text-fav'>
+               <div className='text'>
                    <span>Favourites</span>
-                   <span>(item)</span>
+                   {/* <span>(item)</span> */}
                </div>
                <hr></hr>
-                </div>
+        </div>
+        <div className='shop-block'>
         {favs.map((el) => (
           <OrderElem onDeleteFav={handleDelete} key={el.id} item={el} type='fav' />
         ))}
+          </div>
       </div>
     );
   };
@@ -64,7 +67,6 @@ function Fav({ onDeleteFav }) {
       ) : (
         showNothing()
       )}
-      <Link to='/'>Back to Home</Link>
     </div>
   );
 }

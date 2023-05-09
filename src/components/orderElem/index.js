@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import Modal from '../modal';
 import Button from '../button';
 
-function OrderElem(props) {
-const { type, item, onDelete, onDeleteFav } = props;
+function OrderElem(props ) {
+const { type, item, onDelete, onDeleteFav} = props;
 const [firstModalShow, setFirstModalShow] = useState(false);
-const [active, setActive] = useState(false);
+// const [active, setActive] = useState(false);
 const [secondModalShow, setSecondModalShow] = useState(false);
-    
     
 const handleYesClick = () => {
 console.log('The item was deleted from your cart');
@@ -24,10 +23,11 @@ document.body.classList.remove('modal-open');
 }
 
 const handleYesClickFav = () => {
-console.log('The item was deleted from your cart');
+console.log('The item was deleted from your fav');
 onDeleteFav(item.id);
 setSecondModalShow(false);
-setActive(true);
+
+//console.log(setActive(false));
 document.body.classList.remove('modal-open');
 }
 
@@ -42,14 +42,6 @@ return (
 <img src={'./img/' + item.img} />
 <h2>{item.title}</h2>
 <b>{item.price}$</b>
-
-{/* {type === 'cart' && (
-<FaTrash className='delete-icon' onClick={() => onDelete(item.id)} />
-)}
-        
-{type === 'fav' && (
-<FaTrash className='delete-icon' onClick={() => onDeleteFav(item.id)} />
-)} */}
         
 {type === 'cart' && (
 <FaTrash className='delete-icon' onClick={() => { setFirstModalShow(true); document.body.classList.add('modal-open') }} />
@@ -83,13 +75,11 @@ return (
         </>
       }
     />
-  )}
-
+)}
 
 {type === 'fav' && (
 <FaTrash className='delete-icon' onClick={() => { setSecondModalShow(true); document.body.classList.add('modal-open') }} />
-)}
-        
+)}     
  
    {secondModalShow && (
     <Modal

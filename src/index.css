@@ -20,7 +20,7 @@ code {
   margin: 50px auto;
 }
 
-header {
+.header-home {
   position: relative;
 }
 
@@ -262,3 +262,66 @@ body.modal-open {
 
 .blur{
 }
+
+
+/*Fav Page*/
+.header-fav {
+
+}
+.home-link{
+  float: right ;
+}
+.text-fav{
+  margin: 50px auto;
+  
+}
+.text{
+  margin: 20px auto;
+}
+.shop-block{
+    display: flex;
+    flex-direction: column;
+    gap: 50px 10px;
+}
+.shop-block .item .empty {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.shop-block .item {
+  width: 30%;
+  height: 280px;
+  margin-bottom: 20px;
+}
+
+ .shop-block .item img {
+  width: 100%; 
+  height: 100%;
+  float: left;
+  margin-right: 20px;
+}
+
+.shop-block .item h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.shop-block .item b {
+  font-weight: 500;
+  color: #797979;
+}
+
+.shop-block .item .delete-icon {
+  color: red;
+  float: right;
+  position: relative;
+  top: -25px;
+  cursor: pointer;
+  transition: color, transform 500ms ease;
+}
+
+.shop-block .item .delete-icon:hover {
+  transform: scale(1.5);
+}
+
+/*CartPage*/

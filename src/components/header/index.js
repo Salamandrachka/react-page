@@ -51,7 +51,7 @@ const Header = ({ orders, favs, onDelete, onDeleteFav }) => {
   };
   
   return (
-    <header>
+    <header className='header-home'>
       <div>
         <span className="logo">Luxury Bags</span>
         <FaShoppingBag

@@ -25,23 +25,25 @@ function Cart({ onDelete }) {
 
   const showOrders = () => {
     return (
-        <div>
-            <header> 
+         <div className='wrapper'>
+             <header className='header-fav'>
               <div>
-                <span><Link to='/'>Home page</Link></span>
-                <span className="logo">Luxury Bags</span>
+            <span className="logo">Luxury Bags</span>
+            <span className='home-link'><Link to='/'>Home page</Link></span>
                </div>
            </header>
-           <div>
-               <div>
-                   <span>Shopping Bag</span>
-                   <span>(item)</span>
+           <div className='text-fav'>
+               <div className='text'>
+                   <span>Shopping cart</span>
+                   {/* <span>(item)</span> */}
                </div>
                <hr></hr>
-                </div>
+        </div>
+         <div className='shop-block'>
         {orders.map((el) => (
           <OrderElem onDelete={handleDelete} key={el.id} item={el} type='cart' />
         ))}
+          </div>
       </div>
     );
   };
@@ -61,7 +63,6 @@ function Cart({ onDelete }) {
       ) : (
         showNothing()
       )}
-      <Link to='/'>Back to Home</Link>
     </div>
   );
 }

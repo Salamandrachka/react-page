@@ -4,16 +4,20 @@ import PropTypes from 'prop-types';
 import  Modal from '../modal';
 import  Button from '../button';
 
-const Item = (props) => {
+
+const Item = ( props ) => {
 const modalRef = useRef(null);
 const [active, setActive] = useState(false);
 const [firstModalShow, setFirstModalShow] = useState(false);
 const [secondModalShow, setSecondModalShow] = useState(false);
-
-const handleAddToFav = (item) => {
-if (active) {
-props.onDeleteFav(item.id);
-setActive(false);
+const [deleteModalShow, setDeleteModalShow] = useState(false);
+  
+  const handleAddToFav = () => {
+  //active
+  if (active) {
+  setDeleteModalShow(true);
+// props.onDeleteFav(item.id);
+// setActive(false);
 } else {
 setSecondModalShow(true);
 document.body.classList.add('modal-open');
@@ -31,12 +35,29 @@ const handleNoClick = () => {
 setFirstModalShow(false);
 document.body.classList.remove('modal-open');
 }
+  
+//delete fav
+const handleClose = () => {
+setDeleteModalShow(false);
+document.body.classList.remove('modal-open');
+}
+
+const handleDeleteFav = () => {
+console.log('The item was deleted from your fav');
+props.onDeleteFav(props.item.id);
+setDeleteModalShow(false);
+setActive(false);
+// props.setActive(false);
+document.body.classList.remove('modal-open');
+}
+//
 
 const handleYesClickFav = () => {
 console.log('Товар добавлен в fav');
 props.onAddToFav(props.item);
 setSecondModalShow(false);
 setActive(true);
+// props.setActive(true);
 document.body.classList.remove('modal-open');
 }
 
@@ -81,12 +102,41 @@ return (
               text="NO"
               onClick={() => handleNoClickFav()}
             />
-
           </div>
         </>
       }
     />
   )}
+
+    {deleteModalShow && (
+    <Modal
+      header="Do you want to delete this item from your fav?"
+      text={props.item.title}
+      onClose={() => handleClose()}
+      actions={
+        <>
+          <div className="btnModalBloc">
+            <Button
+              className="button-yes"
+              id="yes-btn"
+              backgroundColor="yellow"
+              text="YES"
+              onClick={() => handleDeleteFav()}
+            />
+
+            <Button
+              className="button-no"
+              id="no-btn"
+              backgroundColor="red"
+              text="NO"
+              onClick={() => handleClose()}
+            />
+
+          </div>
+        </>
+      }
+    />
+  )}   
 
   <div
     className='add-to-card'
@@ -122,7 +172,8 @@ return (
         </>
       }
     />
-  )}
+    )}
+
   </div>
   
 )
