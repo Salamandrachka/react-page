@@ -13,7 +13,7 @@ function Modal(props) {
         </div>
 
         <p className="modalText">{props.text}</p>
-
+ 
         <div>{props.actions}</div>
       </div>
     </div>
