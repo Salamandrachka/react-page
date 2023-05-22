@@ -17,6 +17,7 @@ const Header = ({ orders, favs}) => {
     localStorage.setItem('orders', JSON.stringify(orders));
   }
   };
+  
 
   const toggleFav = () => {
     setFavOpen(prevState => !prevState);
