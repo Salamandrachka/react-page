@@ -261,6 +261,7 @@ body.modal-open {
 }
 
 .blur{
+  position: absolute;
 }
 
 

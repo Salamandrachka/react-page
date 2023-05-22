@@ -1,42 +1,33 @@
-import React, { useState, useRef } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import Modal from '../modal';
 import Button from '../button';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeCartDeleteModal, closeFavsDeleteModal, openCartDeleteModal, openFavsDeleteModal } from '../../redux/actions/modalAction';
+import { deleteFromFavs } from '../../redux/actions/favsAction';
+import { deleteFromCart } from '../../redux/actions/cartAction';
 
-function OrderElem(props ) {
-const { type, item, onDelete, onDeleteFav} = props;
-const [firstModalShow, setFirstModalShow] = useState(false);
-// const [active, setActive] = useState(false);
-const [secondModalShow, setSecondModalShow] = useState(false);
-    
-const handleYesClick = () => {
-console.log('The item was deleted from your cart');
-onDelete(item.id)
-setFirstModalShow(false);
-document.body.classList.remove('modal-open');
-}
+function OrderElem(props) {
+  const { type, item} = props;
+  const dispatch = useDispatch();
+  const currentItem = useSelector(state => state.modal.currentItem)
+      const {
+    isOpenFavsDeleteModal,
+    isOpenCartDeleteModal,
+  } = useSelector((state) => state.modal);
 
-const handleNoClick = () => {
-setFirstModalShow(false);
-document.body.classList.remove('modal-open');
-}
 
-const handleYesClickFav = () => {
-console.log('The item was deleted from your fav');
-onDeleteFav(item.id);
-setSecondModalShow(false);
+  const deleteFromFav = () => {
+    dispatch(deleteFromFavs(currentItem.id));
+    dispatch(closeFavsDeleteModal());
 
-//console.log(setActive(false));
-document.body.classList.remove('modal-open');
-}
+    // reducer({type: ..., payload: ...})
+  };
+ const deleteFromOrders= () => {
+    dispatch(deleteFromCart(currentItem.id));
+    dispatch(closeCartDeleteModal());
+  };
 
-const handleNoClickFav = () => {
-setSecondModalShow(false);
-document.body.classList.remove('modal-open');
-}  
-    
-    
 return (
 <div className='item'>
 <img src={'./img/' + item.img} />
@@ -44,88 +35,74 @@ return (
 <b>{item.price}$</b>
         
 {type === 'cart' && (
-<FaTrash className='delete-icon' onClick={() => { setFirstModalShow(true); document.body.classList.add('modal-open') }} />
+<FaTrash className='delete-icon' onClick={() => { dispatch(openCartDeleteModal(item)) }} />
 )}
- 
-{firstModalShow && (
-    <Modal
-      header="Do you want to delete this item from your cart?"
-      text={props.item.title}
-      onClose={() => handleNoClick()}
-      actions={
-        <>
-          <div className="btnModalBloc">
-            <Button
-              className="button-yes"
-              id="yes-btn"
-              backgroundColor="yellow"
-              text="YES"
-              onClick={() => handleYesClick()}
-            />
 
-            <Button
-              className="button-no"
-              id="no-btn"
-              backgroundColor="red"
-              text="NO"
-              onClick={() => handleNoClick()}
-            />
+      {isOpenCartDeleteModal && (
+        <Modal
+          header="Do you want to delete this item from your cart?"
+          text={currentItem.title}
+          onClose={() => dispatch(closeCartDeleteModal())}
+          actions={
+            <>
+              <div className="btnModalBloc">
+                <Button
+                  className="button-yes"
+                  id="yes-btn"
+                  backgroundColor="yellow"
+                  text="YES"
+                  onClick={() => deleteFromOrders()}
+                />
 
-          </div>
-        </>
-      }
-    />
-)}
+                <Button
+                  className="button-no"
+                  id="no-btn"
+                  backgroundColor="red"
+                  text="NO"
+                  onClick={() => dispatch(closeCartDeleteModal())}
+                />
+              </div>
+            </>
+          }
+        />
+      )}
+
 
 {type === 'fav' && (
-<FaTrash className='delete-icon' onClick={() => { setSecondModalShow(true); document.body.classList.add('modal-open') }} />
+<FaTrash className='delete-icon' onClick={() => { dispatch(openFavsDeleteModal(item)) }} />
 )}     
- 
-   {secondModalShow && (
-    <Modal
-      header="Do you want to delete this item from your fav?"
-      text={props.item.title}
-      onClose={() => handleNoClickFav()}
-      actions={
-        <>
-          <div className="btnModalBloc">
-            <Button
-              className="button-yes"
-              id="yes-btn"
-              backgroundColor="yellow"
-              text="YES"
-              onClick={() => handleYesClickFav()}
-            />
+       {isOpenFavsDeleteModal && (
+        <Modal
+          header="Do you want to delete this item from your fav?"
+          text={currentItem.title}
+          onClose={() => dispatch(closeFavsDeleteModal())}
+          actions={
+            <>
+              <div className="btnModalBloc">
+                <Button
+                  className="button-yes"
+                  id="yes-btn"
+                  backgroundColor="yellow"
+                  text="YES"
+                  onClick={() => deleteFromFav()}
+                />
 
-            <Button
-              className="button-no"
-              id="no-btn"
-              backgroundColor="red"
-              text="NO"
-              onClick={() => handleNoClickFav()}
-            />
+                <Button
+                  className="button-no"
+                  id="no-btn"
+                  backgroundColor="red"
+                  text="NO"
+                  onClick={() => dispatch(closeFavsDeleteModal())}
+                />
+              </div>
+            </>
+          }
+        />
+      )}
 
-          </div>
-        </>
-      }
-    />
-  )}    
-        
 </div>
 );
 }
-
-// OrderElem.propTypes = {
-// type: PropTypes.string,
-// item: PropTypes.shape({
-// id: PropTypes.string,
-// title: PropTypes.string,
-// price: PropTypes.number,
-// img: PropTypes.string,
-// }),
-// onDelete: PropTypes.func,
-// onDeleteFav: PropTypes.func,
-// };
 
 export default OrderElem;
 

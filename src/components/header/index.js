@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { FaShoppingBag, FaStar } from "react-icons/fa";
 import PropTypes from 'prop-types';
 import OrderElem from '../orderElem';
-import {Routes, Route, Link } from 'react-router-dom';
+import {Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const Header = ({ orders, favs, onDelete, onDeleteFav }) => {
+const Header = ({ orders, favs}) => {
   const [cartOpen, setCartOpen] = useState(false);
   const [favOpen, setFavOpen] = useState(false);
 
@@ -21,12 +22,15 @@ const Header = ({ orders, favs, onDelete, onDeleteFav }) => {
     setFavOpen(prevState => !prevState);
     setCartOpen(false);
   };
+  // const {
+  //     isOpencart
+  // } = useSelector((state) => state.orders);
 
   const showOrders = () => {
     return (
       <div>
         {orders.map(el => (
-          <OrderElem onDelete={onDelete} onDeleteFav={onDeleteFav} key={el.id} item={el} type='cart'/>
+          <OrderElem key={el.id} item={el} type='cart'/>
         ))}
       </div>
     );
@@ -36,7 +40,7 @@ const Header = ({ orders, favs, onDelete, onDeleteFav }) => {
     return (
       <div>
         {favs.map(el => (
-          <OrderElem onDeleteFav={onDeleteFav} onDelete={onDelete} key={el.id} item={el} type='fav' />
+          <OrderElem key={el.id} item={el} type='fav' />
         ))}
       </div>
     );
@@ -86,16 +90,6 @@ const Header = ({ orders, favs, onDelete, onDeleteFav }) => {
 Header.propTypes = {
   orders: PropTypes.array.isRequired,
   favs: PropTypes.array.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onDeleteFav: PropTypes.func.isRequired,
 };
 
 export default Header;
-
-
-// Header.propTypes = {
-//   orders: PropTypes.array.isRequired,
-//   favs: PropTypes.array.isRequired,
-//   onDelete: PropTypes.func.isRequired,
-//   onDeleteFav: PropTypes.func.isRequired,
-// };

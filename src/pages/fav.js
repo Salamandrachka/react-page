@@ -1,30 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect } from 'react';
+import { Link} from 'react-router-dom';
 import OrderElem from '../components/orderElem';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFavs } from '../redux/actions/favsAction';
 
-function Fav({ onDeleteFav }) {
-    const [favs, setFavs] = useState([]);
+function Fav() {
+  const favs = useSelector(state => state.favs.favs)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    // Получаем данные из локального хранилища при монтировании компонента
-      const favsData = localStorage.getItem('favs');
-    if (favsData) {
-      setFavs(JSON.parse(favsData));
-    }
-  }, []);
+    dispatch(getFavs());
+  }, [dispatch]);
 
   useEffect(() => {
     // Сохраняем обновленные данные в локальном хранилище
     localStorage.setItem('favs', JSON.stringify(favs));
   }, [favs]);
 
-
-
-  const handleDelete = (id) => {
-    const updatedFavs = favs.filter((fav) => fav.id !== id);
-    setFavs(updatedFavs);
-
-  };
 
   const showFavs= () => {
     return (
@@ -34,6 +26,7 @@ function Fav({ onDeleteFav }) {
                    
             <span className="logo">Luxury Bags</span>
             <span className='home-link'><Link to='/'>Home page</Link></span>
+
                </div>
            </header>
            <div className='text-fav'>
@@ -45,7 +38,7 @@ function Fav({ onDeleteFav }) {
         </div>
         <div className='shop-block'>
         {favs.map((el) => (
-          <OrderElem onDeleteFav={handleDelete} key={el.id} item={el} type='fav' />
+          <OrderElem  key={el.id} item={el} type='fav' />
         ))}
           </div>
       </div>
@@ -56,6 +49,7 @@ function Fav({ onDeleteFav }) {
     return (
       <div className='empty'>
         <h2>No items added</h2>
+        <span className='home-link'><Link to='/'>Home page</Link></span>
       </div>
     );
   };

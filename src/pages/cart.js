@@ -1,27 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import OrderElem from '../components/orderElem';
+import { getOrders } from '../redux/actions/cartAction';
+import { useDispatch, useSelector } from 'react-redux';
 
-function Cart({ onDelete }) {
-  const [orders, setOrders] = useState([]);
-
+function Cart() {
+  const dispatch = useDispatch();
+  //orders
+  const orders = useSelector(state => state.orders.orders)
+  
   useEffect(() => {
-    // Получаем данные из локального хранилища при монтировании компонента
-    const ordersData = localStorage.getItem('orders');
-    if (ordersData) {
-      setOrders(JSON.parse(ordersData));
-    }
-  }, []);
+    dispatch(getOrders())
+  }, [dispatch]);
 
   useEffect(() => {
     // Сохраняем обновленные данные в локальном хранилище
     localStorage.setItem('orders', JSON.stringify(orders));
   }, [orders]);
-
-  const handleDelete = (id) => {
-    const updatedOrders = orders.filter((order) => order.id !== id);
-    setOrders(updatedOrders);
-  };
 
   const showOrders = () => {
     return (
@@ -41,7 +36,7 @@ function Cart({ onDelete }) {
         </div>
          <div className='shop-block'>
         {orders.map((el) => (
-          <OrderElem onDelete={handleDelete} key={el.id} item={el} type='cart' />
+          <OrderElem key={el.id} item={el} type='cart' />
         ))}
           </div>
       </div>
@@ -52,6 +47,7 @@ function Cart({ onDelete }) {
     return (
       <div className='empty'>
         <h2>No items added</h2>
+        <span className='home-link'><Link to='/'>Home page</Link></span>
       </div>
     );
   };

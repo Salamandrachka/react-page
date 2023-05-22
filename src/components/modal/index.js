@@ -1,10 +1,14 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function Modal(props) {
+  // const isActive = useSelector(state => state.fvs.isActive)
+
   return (
     <div className="blur">
       <div className="modal" id="modal">
-        <div className="closePointer" onClick={props.onClose}>
+
+                <div className="closePointer" onClick={props.onClose}>
           X
         </div>
 
